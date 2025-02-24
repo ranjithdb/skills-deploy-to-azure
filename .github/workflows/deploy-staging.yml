@@ -1,0 +1,23 @@
+name: Stage the app
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.pull_request.labels.*.name, 'stage')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo "Staging environment triggered by label 'stage'"
+
+      - name: Run a multi-line script
+        run: |
+          echo "This workflow runs only when the 'stage' label is added to a PR."
+          echo "You can add deployment steps here later."
